@@ -57,7 +57,6 @@ export const useAuthStore = create(set => ({
         }
     },
 
-
     checkAuth: async () => {
         try {
 

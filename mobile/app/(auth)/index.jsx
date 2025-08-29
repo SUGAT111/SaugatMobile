@@ -12,7 +12,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = React.useState(false);
 
 
-    const { user, token, isLoading, login } = useAuthStore();
+    const { isLoading, login } = useAuthStore();
 
     const handleLogin = async () => {
         const result = await login(email, password);
