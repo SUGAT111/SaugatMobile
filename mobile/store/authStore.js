@@ -9,7 +9,7 @@ export const useAuthStore = create(set => ({
 
         set({ isLoading: true });
         try {
-            const response = await fetch('https://localhost:3000/api/auth/register', {
+            const response = await fetch('https://saugatmobile.onrender.com/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

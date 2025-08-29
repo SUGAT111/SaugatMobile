@@ -20,9 +20,7 @@ export default function Signup() {
 
     const handleSignup = async () => {
         const result = await register(username, email, password);
-        if (result.success) {
-            router.push('/app/(auth)/login');
-        } else {
+        if (!result.success) {
             Alert.alert("Error", result.message);
         }
     }
@@ -30,7 +28,7 @@ export default function Signup() {
     console.log("user", user);
     console.log("token", token);
 
-    
+
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
@@ -60,7 +58,7 @@ export default function Signup() {
                                     placeholder="Enter your username"
                                     placeholderTextColor={COLORS.placeholderText}
                                     value={username}
-                                    onChange={setUsername}
+                                    onChangeText={setUsername}
                                     autoCapitalize='none'
                                 />
                             </View>
@@ -81,7 +79,7 @@ export default function Signup() {
                                     placeholder="Enter your email"
                                     placeholderTextColor={COLORS.placeholderText}
                                     value={email}
-                                    onChange={setEmail}
+                                    onChangeText={setEmail}
                                     autoCapitalize='none'
                                     keyboardType='email-address'
                                 />
