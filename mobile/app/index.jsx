@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
@@ -6,6 +7,9 @@ export default function Index() {
       style={style.container}
     >
       <Text style={style.text}>Hello this is Saugat</Text>
+
+      <Link href="/(auth)/signup">Signup</Link>
+      <Link href="/(auth)">Login</Link>
     </View>
   );
 }
