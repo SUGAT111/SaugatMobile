@@ -1,44 +1,54 @@
-import { Stack, useRouter, useSegments } from "expo-router";
+// app/_layout.jsx
+import React, { useEffect } from "react";
+import { Slot, useRouter, useSegments } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SafeScreen from "../components/SafeScreen";
 import { StatusBar } from "expo-status-bar";
-import useAuthStore from "../../store/useAuthStore";
-import { useEffect } from "react";
+import { useAuthStore } from "../store/authStore";
 
 export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
 
-  const { user, token, checkAuth } = useAuthStore();
+  // use the store actions/selectors (selecting the whole object here is fine)
+  const checkAuth = useAuthStore((s) => s.checkAuth);
 
   useEffect(() => {
-    checkAuth();
-  }, [])
+    let mounted = true;
 
-  //handle navigation based on the authentication state
-  useEffect(() => {
-    const isAuthScreen = segments[0] === "(auth)";
-    const isSignedIn = user && token;
+    (async () => {
+      // 1) run auth check (loads user/token from AsyncStorage)
+      await checkAuth();
 
-    if(!isSignedIn && !isAuthScreen) {
-      router.replace("/(auth)");
-    }
-    else if(isSignedIn && isAuthScreen) {
-      router.replace("/(tabs)");
-    }
+      // 2) read state *after* checkAuth finishes
+      const { user, token } = useAuthStore.getState();
 
-  }, [user, token, segments]);
+      // 3) only navigate after auth check is done and after first render (effects run after first render)
+      if (!mounted) return;
 
+      const isAuthScreen = segments[0] === "(auth)";
+      const isSignedIn = !!user && !!token;
+
+      if (!isSignedIn && !isAuthScreen) {
+        router.replace("/(auth)");
+      } else if (isSignedIn && isAuthScreen) {
+        router.replace("/(tabs)");
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once on mount
+
+  // IMPORTANT: render Slot immediately so navigation system mounts
   return (
     <SafeAreaProvider>
       <SafeScreen>
-        <Stack screenOptions={{ headerShown: false }} >
-          <Stack.Screen name="(tabs)" options={{ title: "Home" }} />
-          <Stack.Screen name="(auth)" options={{ title: "Auth" }} />
-        </Stack>
+        <Slot /> {/* must be rendered on first render */}
       </SafeScreen>
       <StatusBar style="dark" />
     </SafeAreaProvider>
-
   );
-} 
+}

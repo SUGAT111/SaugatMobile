@@ -104,6 +104,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
   placeholderContainer: {
     width: "100%",
     height: "100%",
@@ -111,6 +116,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   placeholderText: {
+    color: COLORS.textSecondary,
+    marginTop: 8,
+  },
+  imagePlaceholder: {
     color: COLORS.textSecondary,
     marginTop: 8,
   },

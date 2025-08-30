@@ -51,6 +51,10 @@ export const useAuthStore = create(set => ({
 
             set({ user: data.user, token: data.token, isLoading: false });
 
+            console.log("Login Successful:", data);
+
+            return { success: true, data };
+
         } catch (error) {
             set({ isLoading: false });
             return { success: false, message: error.message };

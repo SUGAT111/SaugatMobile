@@ -3,8 +3,10 @@ import React from 'react'
 import COLORS from '../../constants/color'
 import { Ionicons } from '@expo/vector-icons';
 import styles from "../../assets/styles/login.styles.js"
-import { Link } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 import { useAuthStore } from '../../store/authStore.js';
+
+
 
 export default function Login() {
     const [email, setEmail] = React.useState('');
@@ -12,13 +14,22 @@ export default function Login() {
     const [showPassword, setShowPassword] = React.useState(false);
 
 
+    const router = useRouter();
     const { isLoading, login } = useAuthStore();
 
     const handleLogin = async () => {
         const result = await login(email, password);
 
+        console.log(result, "Login Result");
+
         if (!result.success) {
             Alert.alert("Login Failed", result.message);
+        }
+        else {
+            Alert.alert("Login Successful", "Welcome back!");
+            // Navigate to the home screen or perform any other action
+            router.replace("/(tabs)");
+
         }
     }
     return (

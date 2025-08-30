@@ -1,0 +1,1 @@
+export const API_URL = "https://bookie-backend.onrender.com/api";
