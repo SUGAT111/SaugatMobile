@@ -8,18 +8,24 @@ const router = express.Router();
 //create
 router.post("/", protectRoute, async (req, res) => {
     try {
-
         const { title, author, publishedDate, genre, caption, rating, image } = req.body;
 
         if (!title || !author || !publishedDate || !genre || !caption || !rating || !image) {
             return res.status(400).json({ error: "All fields are required" });
         }
+        // Validate image format
+        if (typeof image !== "string" || !image.startsWith("data:image")) {
+            return res.status(400).json({ error: "Invalid image format. Must be a base64 string." });
+        }
 
+        let uploadResponse;
+        try {
+            uploadResponse = await cloudinary.uploader.upload(image);
+        } catch (cloudErr) {
+            console.error("Cloudinary upload error:", cloudErr);
+            return res.status(400).json({ error: "Image upload failed. Please check the image data." });
+        }
 
-        //upload the image to cloudinary
-        const uploadResponse = await cloudinary.uploader.upload(req.file.path);
-
-        //
         const imageUrl = uploadResponse.secure_url;
         const book = new Book({
             title,
@@ -36,8 +42,6 @@ router.post("/", protectRoute, async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
-
 
 //Get books pagination => infinite scrolling
 router.get("/", async (req, res) => {
