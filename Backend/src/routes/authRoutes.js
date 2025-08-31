@@ -31,7 +31,10 @@ router.post("/register", async (req, res) => {
     if (existingUsername) return res.status(400).json({ message: "Username already exists" });
 
     // get random avatar
-    const avatar = `https://api.adorable.io/avatars/285/${username}.png`;
+    const avatar = `https://api.dicebear.com/7.x/avataaars/png?seed=${Math.random()}`;
+
+
+    // const avatar = `https://api.adorable.io/avatars/285/${username}.png`;
 
     // const hashedPassword = await bcrypt.hash(password, 10);
 
