@@ -25,12 +25,12 @@ import { API_URL } from "../../constants/api";
 export default function Create() {
     const [title, setTitle] = useState("");
     const [publishedDate, setPublishedDate] = useState(new Date()); // keep as string for input
-    const [genre, setGenre] = useState("Test");
+    const [genre, setGenre] = useState("");
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
     const [imageBase64, setImageBase64] = useState(null);
     const [rating, setRating] = useState(1);
-    const [author, setAuthor] = useState("dada");
+    const [author, setAuthor] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
@@ -154,7 +154,7 @@ export default function Create() {
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
             <ScrollView contentContainerStyle={styles.container} style={styles.scrollViewStyle}>
                 <View style={styles.card}>
-                    <Text style={styles.title}>Add Book Recommendation</Text>
+                    <Text style={styles.title}>Add Book Recomendation</Text>
                     <Text style={styles.subtitle}>Share your favorite book with others!</Text>
                 </View>
 
@@ -163,7 +163,24 @@ export default function Create() {
                         <Text style={styles.label}>Title</Text>
                         <View style={styles.inputContainer}>
                             <Ionicons name="book-outline" size={20} color={COLORS.textSecondary} style={styles.inputIcon} />
-                            <TextInput value={title} onChangeText={setTitle} placeholder="Enter book title" placeholderTextColor={COLORS.placeholderTextColor} style={styles.input} />
+                            <TextInput value={title} onChangeText={setTitle} placeholder="Enter book title" placeholderTextColor={COLORS.placeholderText} style={styles.input} />
+                        </View>
+                    </View>
+
+                    <View style={styles.formGroup}>
+                        <Text style={styles.label}>Author</Text>
+                        <View style={styles.inputContainer}>
+                            <Ionicons name="person-circle-outline" size={20} color={COLORS.textSecondary} style={styles.inputIcon} />
+                            <TextInput value={author} onChangeText={setAuthor} placeholder="Enter book author" placeholderTextColor={COLORS.placeholderText} style={styles.input} />
+                        </View>
+                    </View>
+
+                    
+                    <View style={styles.formGroup}>
+                        <Text style={styles.label}>Genre</Text>
+                        <View style={styles.inputContainer}>
+                            <Ionicons name="albums-outline" size={20} color={COLORS.textSecondary} style={styles.inputIcon} />
+                            <TextInput value={genre} onChangeText={setGenre} placeholder="Enter book genre" placeholderTextColor={COLORS.placeholderText} style={styles.input} multiline />
                         </View>
                     </View>
 
@@ -195,7 +212,7 @@ export default function Create() {
                         {isLoading ? (
                             <ActivityIndicator color={COLORS.white} />
                         ) : (
-                            <View style={styles.buttonContent}>
+                            <View style={{ flexDirection: "row", alignItems: "center" }}>
                                 <Ionicons name="cloud-upload-outline" size={20} color={COLORS.white} style={styles.buttonIcon} />
                                 <Text style={styles.buttonText}>Share</Text>
                             </View>

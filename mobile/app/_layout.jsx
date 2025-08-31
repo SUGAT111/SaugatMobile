@@ -1,10 +1,13 @@
 // app/_layout.jsx
 import React, { useEffect } from "react";
-import { Slot, useRouter, useSegments } from "expo-router";
+import { Slot, SplashScreen, useRouter, useSegments } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SafeScreen from "../components/SafeScreen";
 import { StatusBar } from "expo-status-bar";
 import { useAuthStore } from "../store/authStore";
+import { useFonts } from "expo-font";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const router = useRouter();
@@ -12,6 +15,14 @@ export default function RootLayout() {
 
   // use the store actions/selectors (selecting the whole object here is fine)
   const checkAuth = useAuthStore((s) => s.checkAuth);
+
+  const [fontsLoaded] = useFonts({
+    "JetBrainsMono-Medium": require("../assets/fonts/JetBrainsMono-Medium.ttf")
+  })
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded])
 
   useEffect(() => {
     let mounted = true;
@@ -43,6 +54,8 @@ export default function RootLayout() {
   }, []); // run once on mount
 
   // IMPORTANT: render Slot immediately so navigation system mounts
+
+
   return (
     <SafeAreaProvider>
       <SafeScreen>

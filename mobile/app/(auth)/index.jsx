@@ -15,7 +15,7 @@ export default function Login() {
 
 
     const router = useRouter();
-    const { isLoading, login } = useAuthStore();
+    const { isLoading, login, isCheckingAuth } = useAuthStore();
 
     const handleLogin = async () => {
         const result = await login(email, password);
@@ -32,6 +32,9 @@ export default function Login() {
 
         }
     }
+
+    if (isCheckingAuth) return null;
+
     return (
 
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>

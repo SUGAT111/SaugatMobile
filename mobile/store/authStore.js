@@ -1,9 +1,11 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
 export const useAuthStore = create(set => ({
     user: null,
     token: null,
     isLoading: false,
+    isCheckingAuth: true,
 
     register: async (username, email, password) => {
 
@@ -73,12 +75,15 @@ export const useAuthStore = create(set => ({
         } catch (error) {
             set({ isLoading: false });
             console.log('Error checking auth:', error);
+        } finally {
+            set({ isCheckingAuth: false })
         }
     },
 
     logout: async () => {
         await AsyncStorage.removeItem('user');
         await AsyncStorage.removeItem('token');
+         router.replace("/(auth)");
         set({ user: null, token: null });
     }
 
