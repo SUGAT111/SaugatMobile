@@ -44,7 +44,7 @@ router.post("/", protectRoute, async (req, res) => {
 });
 
 //Get books pagination => infinite scrolling
-router.get("/", async (req, res) => {
+router.get("/user", async (req, res) => {
     try {
         const page = req.query.page || 1;
         const limit = req.query.limit || 10;
