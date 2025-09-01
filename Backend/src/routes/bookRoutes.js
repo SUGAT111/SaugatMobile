@@ -65,6 +65,23 @@ router.get("/", async (req, res) => {
     }
 });
 
+// latest 5 posted books
+router.get("/fivePostedBooks", async (req, res) => {
+    try {
+        const page = req.query.page || 1;
+        const books = await Book.find()
+            .populate("author", "username profileImage").limit(5).sort({ createdAt: -1 });
+
+        const total = await Book.countDocuments();
+
+        res.status(200).json({ books, currentPage: page, totalBooks: total, totalPages: Math.ceil(total / limit) });
+
+    } catch (error) {
+        console.log("error in book get");
+        res.status(400).json({ error: error.message });
+    }
+});
+
 // get recommended books  by the logged in user
 router.get("/recommended", protectRoute, async (req, res) => {
     try {
@@ -76,6 +93,20 @@ router.get("/recommended", protectRoute, async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
+
+
+//get recomended 5 books by logged in user
+router.get("/recommendedfivebooks", protectRoute, async (req, res) => {
+    try {
+        const user = req.user;
+        const books = await Book.find({ author: user._id }).sort({ createdAt: -1 }).limit(5);
+        res.status(200).json({ books });
+    } catch (error) {
+        console.log("error in getting recommended books");
+        res.status(400).json({ error: error.message });
+    }
+});
+
 
 //delete
 router.delete("/:id", protectRoute, async (req, res) => {
