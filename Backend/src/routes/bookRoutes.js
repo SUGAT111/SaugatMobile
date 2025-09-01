@@ -68,13 +68,9 @@ router.get("/", async (req, res) => {
 // latest 5 posted books
 router.get("/fivePostedBooks", async (req, res) => {
     try {
-        const page = req.query.page || 1;
         const books = await Book.find()
-            .populate("author", "username profileImage").limit(5).sort({ createdAt: -1 });
-
-        const total = await Book.countDocuments();
-
-        res.status(200).json({ books, currentPage: page, totalBooks: total, totalPages: Math.ceil(total / limit) });
+            .populate("author", "username profileImage").sort({ createdAt: -1 }).limit(5).exec();
+        res.status(200).json({ books });
 
     } catch (error) {
         console.log("error in book get");
