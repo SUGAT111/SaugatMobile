@@ -1,4 +1,3 @@
-// app/_layout.jsx
 import React, { useEffect } from "react";
 import { Slot, SplashScreen, useRouter, useSegments } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -6,6 +5,8 @@ import SafeScreen from "../components/SafeScreen";
 import { StatusBar } from "expo-status-bar";
 import { useAuthStore } from "../store/authStore";
 import { useFonts } from "expo-font";
+import Header from "../components/CommonHeader"
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -13,7 +14,6 @@ export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
 
-  // use the store actions/selectors (selecting the whole object here is fine)
   const checkAuth = useAuthStore((s) => s.checkAuth);
 
   const [fontsLoaded] = useFonts({
@@ -28,13 +28,10 @@ export default function RootLayout() {
     let mounted = true;
 
     (async () => {
-      // 1) run auth check (loads user/token from AsyncStorage)
       await checkAuth();
 
-      // 2) read state *after* checkAuth finishes
       const { user, token } = useAuthStore.getState();
 
-      // 3) only navigate after auth check is done and after first render (effects run after first render)
       if (!mounted) return;
 
       const isAuthScreen = segments[0] === "(auth)";
@@ -50,16 +47,13 @@ export default function RootLayout() {
     return () => {
       mounted = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once on mount
-
-  // IMPORTANT: render Slot immediately so navigation system mounts
-
+  }, []);
 
   return (
     <SafeAreaProvider>
       <SafeScreen>
-        <Slot /> {/* must be rendered on first render */}
+        <Header title="Saugat App" />
+        <Slot />
       </SafeScreen>
       <StatusBar style="dark" />
     </SafeAreaProvider>

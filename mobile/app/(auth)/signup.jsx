@@ -23,11 +23,10 @@ export default function Signup() {
         if (!result.success) {
             Alert.alert("Error", result.message);
         }
+        else {
+            router.replace("/(auth)");
+        }
     }
-
-    console.log("user", user);
-    console.log("token", token);
-
 
     return (
         <KeyboardAvoidingView

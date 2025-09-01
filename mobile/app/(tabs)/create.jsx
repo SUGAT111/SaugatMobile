@@ -1,5 +1,4 @@
-// app/(tabs)/create.jsx  (or wherever your file is)
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     View,
     Text,
@@ -20,7 +19,6 @@ import * as FileSystem from "expo-file-system";
 import COLORS from "../../constants/color";
 import { useAuthStore } from "../../store/authStore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "../../constants/api";
 
 export default function Create() {
     const [title, setTitle] = useState("");
@@ -35,7 +33,6 @@ export default function Create() {
 
     const router = useRouter();
     const { token } = useAuthStore();
-    // not used directly here, but OK
 
     const pickImage = async () => {
         try {
@@ -113,7 +110,7 @@ export default function Create() {
 
             if (!response.ok) {
                 const text = await response.text();
-                console.error("💥 Non-JSON response:", text);
+                console.error(" Non-JSON response:", text);
                 throw new Error(text || `Request failed with status ${response.status}`);
             }
 
@@ -129,7 +126,7 @@ export default function Create() {
             setRating(1);
             setAuthor("");
             setPublishedDate("");
-            router.push("/"); 
+            router.push("/");
         } catch (error) {
             console.error("Error submitting form:", error);
             Alert.alert("Error", error.message || "Could not submit form");
@@ -175,7 +172,7 @@ export default function Create() {
                         </View>
                     </View>
 
-                    
+
                     <View style={styles.formGroup}>
                         <Text style={styles.label}>Genre</Text>
                         <View style={styles.inputContainer}>

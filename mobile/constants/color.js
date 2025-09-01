@@ -11,6 +11,7 @@ const COLORS = {
   border: "#c8e6c9",
   white: "#ffffff",
   black: "#000000",
+  logoBackground: "#66BB6A",
 };
 
 // RETRO

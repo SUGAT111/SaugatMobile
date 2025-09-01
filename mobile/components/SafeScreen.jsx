@@ -16,7 +16,7 @@ export default function SafeScreen({ children }) {
   });
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container, { paddingTop: insets.top }, { paddingBottom: insets.bottom }]}>
       {safeChildren}
     </View>
   );

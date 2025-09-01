@@ -10,7 +10,7 @@ import Loader from '../../components/Loader';
 import WelcomeHeader from '../../components/WelcomeHeader';
 import Recommend from '../../components/recommend';
 
-export default function Home() {
+export default function Recommended() {
     const { token } = useAuthStore();
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -124,9 +124,8 @@ export default function Home() {
 
                 ListHeaderComponent={
                     <View style={styles.header}>
-                        <WelcomeHeader />
-                        <Recommend />
-
+                        <Text style={styles.headerTitle}>Books</Text>
+                        <Text style={styles.headerSubtitle}>Let's Recommend</Text>
                     </View>
                 }
 

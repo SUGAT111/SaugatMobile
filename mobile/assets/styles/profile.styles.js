@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   bookImage: {
     width: 70,
-    height: 100,
+    height: 70,
     borderRadius: 8,
     marginRight: 12,
   },
@@ -168,6 +168,10 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontWeight: "600",
     fontSize: 14,
+  },
+  booksListHorizontal: {
+    paddingHorizontal: 16,
+    gap: 12, // space between slides
   },
 });
 
