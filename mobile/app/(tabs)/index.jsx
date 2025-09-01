@@ -9,6 +9,7 @@ import { formPublishDate } from '../../lib/utils';
 import Loader from '../../components/Loader';
 import WelcomeHeader from '../../components/WelcomeHeader';
 import Recommend from '../../components/recommend';
+import LatestBooks from '../../components/LatestBooks';
 
 export default function Home() {
     const { token } = useAuthStore();
@@ -126,7 +127,7 @@ export default function Home() {
                     <View style={styles.header}>
                         <WelcomeHeader />
                         <Recommend />
-
+                        <LatestBooks />
                     </View>
                 }
 
@@ -142,6 +143,8 @@ export default function Home() {
                     </View>
                 }
             />
+
+
         </View>
     )
 }

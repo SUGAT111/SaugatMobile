@@ -10,7 +10,7 @@ export default function WelcomeHeader() {
 
     if (!user) return null;
     return (
-        <View >
+        <View style={styles.container}>
             <View style={styles.greetingRow}>
                 <Text style={styles.greetingText}>Hello {user.username}</Text>
                 <Text style={styles.emoji}>👋</Text>

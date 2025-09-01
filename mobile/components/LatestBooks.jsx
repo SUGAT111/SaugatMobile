@@ -1,16 +1,16 @@
-import { View, Alert, Text, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, Alert, Text, FlatList, RefreshControl } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from "expo-router";
 import { useAuthStore } from '../store/authStore';
 import { useEffect } from 'react';
-import styles from '../assets/styles/profile.styles';
+import styles from '../assets/styles/slide.styles';
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../constants/color';
 import { Image } from "expo-image";
 import Loader from './Loader';
 
 
-export default function Recommend() {
+export default function LatestBooks() {
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -22,13 +22,15 @@ export default function Recommend() {
     const fetchData = async () => {
         try {
             setIsLoading(true);
-
-            const response = await fetch("https://saugatmobile.onrender.com/api/books/recommendedfivebooks", {
-                headers: { Authorization: `Bearer ${token}` }
-            })
+            const response = await fetch(`https://saugatmobile.onrender.com/api/books/fivePostedBooks`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
             const data = await response.json();
+
+            console.log("response", response)
             if (!response.ok) throw new Error(data.message || "Failed to fetch user books");
+
             setBooks(data.books);
         } catch (error) {
             console.error("Error fetcching data ", error);
@@ -45,12 +47,11 @@ export default function Recommend() {
 
     const renderBookItem = ({ item }) => {
         return (
-            <View style={styles.bookItem}>
-                <Image source={{ uri: item.image }} style={styles.bookImage} />
-                <View style={styles.bookInfo}>
-                    <Text style={styles.bookTitle}>{item.title}</Text>
+            <View style={styles.card}>
+                <Image source={{ uri: item.image }} style={styles.cardImage} />
+                <View style={styles.cardBody}>
+                    <Text style={styles.titleText}>{item.title}</Text>
                     <View style={styles.ratingContainer}>{renderStars(item.rating)}</View>
-                    <Text style={styles.bookDate}>{new Date(item.createdAt).toLocaleString()}</Text>
                 </View>
             </View>
         )
@@ -84,23 +85,25 @@ export default function Recommend() {
 
     return (
         <>
-            {books.length > 0 && <View style={styles.container}>
-                {/* user Reomendation */}
-                <View style={styles.booksHeader}>
-                    <Text style={styles.booksTitle}>Your Recomendation</Text>
-                    <Text style={styles.booksCount}>View All </Text>
-                </View>
+            {books.length > 0 &&
+                <View style={styles.container}>
+                    {/* user Reomendation */}
+                    <View style={styles.booksHeader}>
+                        <Text style={styles.booksTitle}>New Recomendation</Text>
+                        <Text style={styles.booksCount}>View All </Text>
+                    </View>
 
-                <FlatList
-                    data={books}
-                    renderItem={renderBookItem}
-                    keyExtractor={(item) => item._id}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.booksListHorizontal}
-                />
+                    <FlatList
+                        data={books}
+                        renderItem={renderBookItem}
+                        keyExtractor={(item) => item._id}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.booksListHorizontal}
 
-            </View>}
+                    />
+
+                </View>}
         </>
     )
 }

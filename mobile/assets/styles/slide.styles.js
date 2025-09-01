@@ -1,77 +1,83 @@
-import { StyleSheet } from "react-native";
-import COLORS from "../../constants/color";
+import { StyleSheet } from 'react-native';
+import COLORS from '../../constants/color';
 
 const styles = StyleSheet.create({
-
     container: {
+        paddingHorizontal: 16,
+        paddingVertical: 10,
         flex: 1,
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.white,
         padding: 16,
-        paddingBottom: 0,
+        paddingBottom: 10,
     },
-    loadingContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: COLORS.background,
+    sectionHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
     },
-    profileHeader: {
-        flexDirection: "row",
-        alignItems: "center",
-        backgroundColor: COLORS.cardBackground,
-        borderRadius: 16,
-        padding: 16,
-        marginBottom: 16,
-        shadowColor: COLORS.black,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 3,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-    },
-    profileImage: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
-        marginRight: 16,
-    },
-    profileInfo: {
-        flex: 1,
-    },
-    username: {
-        fontSize: 20,
-        fontWeight: "700",
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
         color: COLORS.textPrimary,
-        marginBottom: 4,
     },
-    email: {
+    viewAll: {
         fontSize: 14,
-        color: COLORS.textSecondary,
-        marginBottom: 4,
+        color: COLORS.primary,
     },
-    memberSince: {
-        fontSize: 12,
-        color: COLORS.textSecondary,
+    cardList: {
+        paddingBottom: 10,
     },
-    logoutButton: {
-        backgroundColor: COLORS.primary,
-        borderRadius: 12,
-        padding: 12,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: 24,
-        shadowColor: COLORS.black,
-        shadowOffset: { width: 0, height: 2 },
+    card: {
+        width: 220,
+        height: 220,
+        marginRight: 12,
+        borderRadius: 10,
+        backgroundColor: '#fff',
+        overflow: 'hidden',
+        shadowColor: "#000",
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 2,
     },
-    logoutText: {
-        color: COLORS.white,
-        fontWeight: "600",
-        marginLeft: 8,
+    cardImage: {
+        width: '100%',
+        height: 120,
+    },
+    cardBody: {
+        padding: 10,
+    },
+    categoryText: {
+        fontSize: 12,
+        color: COLORS.textSecondary,
+        marginBottom: 2,
+    },
+    titleText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: COLORS.textPrimary,
+        marginBottom: 5,
+    },
+    ratingContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    ratingText: {
+        marginLeft: 4,
+        fontSize: 12,
+        color: COLORS.textSecondary,
+    },
+    enrollButton: {
+        backgroundColor: COLORS.primary,
+        paddingVertical: 6,
+        borderRadius: 6,
+        alignItems: 'center',
+    },
+    enrollText: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     booksHeader: {
         flexDirection: "row",
@@ -88,113 +94,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: COLORS.textSecondary,
     },
-    booksList: {
-        paddingBottom: 20,
-    },
-    bookItem: {
-        flexDirection: "row",
-        backgroundColor: COLORS.cardBackground,
-        borderRadius: 12,
-        padding: 12,
-        marginBottom: 12,
-        shadowColor: COLORS.black,
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 2,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-    },
-    bookImage: {
-        width: 70,
-        height: 70,
-        borderRadius: 8,
-        marginRight: 12,
-    },
-    bookInfo: {
-        flex: 1,
-        justifyContent: "space-between",
-    },
-    bookTitle: {
-        fontSize: 16,
-        fontWeight: "600",
-        color: COLORS.textPrimary,
-        marginBottom: 4,
-    },
-    ratingContainer: {
-        flexDirection: "row",
-        marginBottom: 4,
-    },
-    bookCaption: {
-        fontSize: 14,
-        color: COLORS.textDark,
-        marginBottom: 4,
-        flex: 1,
-    },
-    bookDate: {
-        fontSize: 12,
-        color: COLORS.textSecondary,
-    },
-    deleteButton: {
-        padding: 8,
-        justifyContent: "center",
-    },
-    emptyContainer: {
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 40,
-        marginTop: 20,
-    },
-    emptyText: {
-        fontSize: 16,
-        fontWeight: "600",
-        color: COLORS.textPrimary,
-        marginTop: 16,
-        marginBottom: 20,
-        textAlign: "center",
-    },
-    addButton: {
-        backgroundColor: COLORS.primary,
-        borderRadius: 12,
-        paddingVertical: 12,
-        paddingHorizontal: 20,
-        shadowColor: COLORS.black,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 2,
-    },
-    addButtonText: {
-        color: COLORS.white,
-        fontWeight: "600",
-        fontSize: 14,
-    },
-    booksListHorizontal: {
-        paddingHorizontal: 16,
-        gap: 12, // space between slides
-    },
-
-    bookItem: {
-        width: 220, // fixed width for card
-        backgroundColor: COLORS.cardBackground,
-        borderRadius: 12,
-        marginRight: 12,
-        padding: 10,
-        shadowColor: COLORS.black,
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 3,
-    },
-    bookImage: {
-        width: "100%",
-        height: 120,
-        borderRadius: 8,
-        marginBottom: 8,
-    },
-    bookInfo: {
-        flex: 1,
-    },
-
-})
+});
 
 export default styles;

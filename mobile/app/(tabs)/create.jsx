@@ -126,7 +126,7 @@ export default function Create() {
             setRating(1);
             setAuthor("");
             setPublishedDate("");
-            router.push("/");
+            router.push("/(tabs)/books");
         } catch (error) {
             console.error("Error submitting form:", error);
             Alert.alert("Error", error.message || "Could not submit form");

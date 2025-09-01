@@ -4,10 +4,16 @@ import COLORS from "../../constants/color";
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     flex: 1,
     backgroundColor: COLORS.background,
     padding: 16,
-    paddingBottom: 0,
+    paddingBottom: 10,
+  },
+  listContainer: {
+    padding: 16,
+    paddingBottom: 80,
   },
   loadingContainer: {
     flex: 1,
